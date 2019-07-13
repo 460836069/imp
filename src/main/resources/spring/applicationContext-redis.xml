@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!--将redis对象交给spring容器管理-->
+    <!--注册单机版的redis，创建jedisPool，需要通过构造方法注入port和host-->
+    <!--连接redis的单机版-->
+    <!--注册单机版的实现类-->
+    <bean id="jedisClientPool" class="com.xcy.utils.JedisClientPool">
+        <property name="jedisPool" ref="jedisPool"/>
+    </bean>
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="host" value="127.0.0.1" />
+        <constructor-arg name="port" value="6379"/>
+    </bean>
+    <!--单机和集群只能有一个存在-->
+</beans>
